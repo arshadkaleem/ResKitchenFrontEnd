@@ -4,7 +4,9 @@ import { VendorsService } from '@/services/vendors.service';
 import type { Vendor } from '@/types/vendor.type';
 import Link from 'next/link';
 import Loader from '../Loader';
-
+import { Button } from '../ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
     interface VendorDetailsProps {
         vendorId: number;
@@ -58,39 +60,37 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
 
   return (
     <>
-    <div className="p-4 max-w-2xl mx-auto">
-        <div className="mb-4">
-          <Link href="/vendors" className="text-blue-500 hover:text-blue-700">
-            ← Back to Vendors
+     <div className="p-4 max-w-2xl mx-auto">
+      <div className="mb-4">
+        <Button variant="link" asChild className="p-0">
+          <Link href="/vendors" className="flex items-center text-primary hover:text-primary/80">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Vendors
           </Link>
-        </div>
-  
-        <div className="bg-white rounded-lg shadow p-6">
-          <h1 className="text-2xl font-bold mb-4">{vendor.vendorName}</h1>
-          
-          <div className="space-y-3">
-            <div>
-              <label className="font-semibold">Contact Person:</label>
-              <p>{vendor.contactPerson}</p>
-            </div>
-            
-            <div>
-              <label className="font-semibold">Email:</label>
-              <p>{vendor.email}</p>
-            </div>
-            
-            <div>
-              <label className="font-semibold">Phone:</label>
-              <p>{vendor.phone}</p>
-            </div>
-            
-            <div>
-              <label className="font-semibold">Address:</label>
-              <p>{vendor.address}</p>
-            </div>
-          </div>
-        </div>
+        </Button>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{vendor.vendorName}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {[
+              { label: "Contact Person", value: vendor.contactPerson },
+              { label: "Email", value: vendor.email },
+              { label: "Phone", value: vendor.phone },
+              { label: "Address", value: vendor.address },
+            ].map((item) => (
+              <div key={item.label} className="space-y-1">
+                <dt className="text-sm font-medium text-muted-foreground">{item.label}</dt>
+                <dd className="text-sm font-semibold">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </CardContent>
+      </Card>
+    </div>
     </>
   )
 }

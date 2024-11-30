@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { VendorsService } from '@/services/vendors.service';
 import type { Vendor } from '@/types/vendor.type';
 import Link from 'next/link';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 
 
 const VendorList = () => {
@@ -56,24 +57,26 @@ const VendorList = () => {
 
   return (
     <>
- <div className="p-4">
+  <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Vendor List</h1>
-      <div className="space-y-4">
-        {vendors.map((vendor) => (  
-<>
-    <Link href={{ pathname: `/vendors/${vendor.vendorId}`}}>
-            <div key={vendor.vendorId} className="border p-4 rounded-lg">
-                <h2 className="font-semibold">{vendor.vendorName}</h2>
-            <p className="text-gray-600">{vendor.contactPerson}</p>
-          </div>
-          </Link>
-</>
-
-
-          
-         
-        ))}
-      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Vendor Name</TableHead>
+            <TableHead>Contact Person</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {vendors.map((vendor) => (
+            <TableRow key={vendor.vendorId} className="hover:bg-muted/50 cursor-pointer">
+              <Link href={`/vendors/${vendor.vendorId}`} className="contents">
+                <TableCell className="font-medium">{vendor.vendorName}</TableCell>
+                <TableCell>{vendor.contactPerson}</TableCell>
+              </Link>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
     </>
   )
