@@ -3,7 +3,7 @@ import type { RecipeItem } from '@/types/recipeItem.type';
 
 
 
-  export class RecipesService {
+export class RecipeItemsService {
     private static endpoint = '/RecipeItem';
   
     static async getRecipeItems() {
@@ -14,7 +14,7 @@ import type { RecipeItem } from '@/types/recipeItem.type';
       return await ApiService.get<RecipeItem>(`${this.endpoint}/${id}`);
     }
   
-    static async createRecipeItem(recipeItemData: Omit<RecipeItem, 'id'>) {
-      return await ApiService.post<RecipeItem>(this.endpoint, recipeItemData);
+    static async createRecipe(recipeData: Omit<RecipeItem, 'id'>) {
+      return await ApiService.post<RecipeItem>(this.endpoint, recipeData);
     }
   }

@@ -6,5 +6,7 @@ export interface StockPurchase {
     totalAmount: number;       // Decimal value for total amount
     purchaseDate: string;      // Date in 'YYYY-MM-DD' format
     createdAt: Date;           // DateTime, defaults to current date
+    vendorName: string;          // Foreign key referencing Items table
+    itemName: string;        // Foreign key referencing Vendors table
   }
   
